@@ -1,4 +1,4 @@
-package com.jonathansamines.models;
+package com.jonathansamines.dao.models;
 
 /**
  * User data model
@@ -10,6 +10,7 @@ public class User {
     private String username;
     private String firstName;
     private String lastName;
+    private String password;
     private Group group;
     
     public User(String username, String firstName, String lastName) {
@@ -56,5 +57,13 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -1,4 +1,6 @@
-package com.jonathansamines.models;
+package com.jonathansamines.dao.models;
+
+import java.util.ArrayList;
 
 /**
  * Permission detail model
@@ -8,9 +10,11 @@ public class Permission {
     
     private int permissionId;
     private String name;
+    private ArrayList<Group> groups;
     
     public Permission(String name) {
         this.name = name;
+        this.groups = new ArrayList<>();
     }
 
     public int getPermissionId() {
@@ -28,4 +32,12 @@ public class Permission {
     public void setName(String name) {
         this.name = name;
     }    
+
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(ArrayList<Group> groups) {
+        this.groups = groups;
+    }
 }
