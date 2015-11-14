@@ -27,9 +27,13 @@ public class ProtectionFilter implements Filter {
         
         Object user = req.getSession().getAttribute("user");
         
+        
         if (user == null) {
-            res.sendRedirect("/login");
+            res.sendRedirect(req.getContextPath() + "/login");
+            return;
         }
+        
+        chain.doFilter(request, response);
     }
 
     @Override

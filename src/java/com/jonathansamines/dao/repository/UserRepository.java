@@ -46,6 +46,7 @@ public class UserRepository implements IRepository<User> {
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
             ResultSet set = st.executeQuery("SELECT * FROM users LEFT JOIN groups ON groups.id_group = users.id_group WHERE username = '" + username + "' AND password = MD5('" + password + "');");
+            System.out.println("SELECT * FROM users LEFT JOIN groups ON groups.id_group = users.id_group WHERE username = '" + username + "' AND password = MD5('" + password + "');");
 
             while(set.next()) {
                 User user = new User(set.getString("username"), set.getString("firstname"), set.getString("lastname"));

@@ -25,13 +25,13 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         
-        response.sendRedirect("/");
+        response.sendRedirect(request.getContextPath() + "/");
     }
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String)request.getAttribute("username");
-        String password = (String)request.getAttribute("password");
+        String username = (String)request.getParameter("username");
+        String password = (String)request.getParameter("password");
         
         UserRepository repository = new UserRepository();
         User user = repository.validateCredentials(username, password);
@@ -44,6 +44,6 @@ public class LoginServlet extends HttpServlet {
         }
         
         request.getSession().setAttribute("user", user);
-        response.sendRedirect("/");
+        response.sendRedirect(request.getContextPath() + "/");
     }
 }

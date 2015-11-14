@@ -17,6 +17,6 @@
 
     <filter-mapping>
         <filter-name>ProtectionFilter</filter-name>
-        <servlet-name>IndexServlet</servlet-name>
+        <servlet-name>Index</servlet-name>
     </filter-mapping>
 </web-app>

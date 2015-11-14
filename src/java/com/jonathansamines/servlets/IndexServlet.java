@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
  * Index
  * @author jonathansamines
  */
-@WebServlet("/home")
+@WebServlet(name = "Index", urlPatterns = { "/home", "" })
 public class IndexServlet extends HttpServlet {
     
     @Override
