@@ -44,4 +44,24 @@
         <filter-name>ProtectionFilter</filter-name>
         <servlet-name>UserUpdate</servlet-name>
     </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>ProtectionFilter</filter-name>
+        <servlet-name>UserDelete</servlet-name>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>ProtectionFilter</filter-name>
+        <servlet-name>GroupCreation</servlet-name>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>ProtectionFilter</filter-name>
+        <servlet-name>GroupUpdate</servlet-name>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>ProtectionFilter</filter-name>
+        <servlet-name>GroupDelete</servlet-name>
+    </filter-mapping>
 </web-app>

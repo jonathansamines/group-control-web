@@ -56,7 +56,6 @@ public class UserCreationServlet extends HttpServlet {
         
         if (this.users.create(user)) {
             request.setAttribute("message", "Usuario creado correctamente.");
-            System.out.println(request.getContextPath() + "/users");
             response.sendRedirect(request.getContextPath() + "/users");
             
             return;

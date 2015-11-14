@@ -37,6 +37,7 @@
                             <td><%= group.getName() %></td>
                             <td>
                                 <a class="btn btn-primary btn-xs" href="<%= request.getContextPath() %>/groups/update?groupId=<%= group.getGroupId() %>">Modificar</a>
+                                <a class="btn btn-danger btn-xs" href="<%= request.getContextPath() %>/groups/delete?groupId=<%= group.getGroupId() %>">Eliminar</a>
                             </td>
                         </tr>
                       <% } %>

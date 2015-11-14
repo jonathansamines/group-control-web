@@ -8,8 +8,7 @@
 
     <title>Actualización de Grupo</title>
 
-    <%@include file="partials/_includes.jsp" %>
-    <% ArrayList<Group> groups = (ArrayList<Group>)request.getAttribute("groups"); %>
+    <%@include file="../partials/_includes.jsp" %>
     <% Group group = (Group)request.getAttribute("group"); %>
 
   </head>
@@ -19,10 +18,11 @@
 
       <div class="row">
           <div class="col-md-12">
-            <form method="POST" action="groups">
+            <form method="POST" action="update">
+                <input type="hidden" name="groupId" value="<%= group.getGroupId() %>">
                 <div class="form-group">
                     <label for="groupname">Nombre de Grupo</label>
-                    <input type="text" class="form-control" id="groupname" name="groupname" placeholder="Nombre del Grupo" value="<%= group.getName() %>">
+                    <input type="text" class="form-control" id="groupname" name="groupname" placeholder="Nombre del Grupo" value="<%= group.getName() %>" required>
                 </div>
 
                 <button type="submit" class="btn btn-success">Modificar Grupo</button>
