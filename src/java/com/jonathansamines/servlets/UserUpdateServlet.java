@@ -55,15 +55,14 @@ public class UserUpdateServlet extends HttpServlet {
         
         if (this.users.update(user)) {
             request.setAttribute("message", "Usuario creado correctamente.");
-            System.out.println(request.getContextPath() + "/users");
             response.sendRedirect(request.getContextPath() + "/users");
             
             return;
         }
         
         request.setAttribute("message", "Error al crear el usuario");
-
         request.setAttribute("groups", groups.get());
+        request.setAttribute("user", users.getById(Integer.parseInt(request.getParameter("userId"))));
         request.getRequestDispatcher("../views/users/updateUser.jsp").forward(request, response);
     }
 }
