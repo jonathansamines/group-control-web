@@ -41,7 +41,7 @@
                         <label for="group">Grupo</label>
                         <select name="group" class="form-control">
                             <% for(Group group : groups) { %>
-                            <option <%= u.getGroup().getName() == group.getName() ? "selected": "" %> value="<%= group.getGroupId() %>"><%= group.getName() %></option>
+                            <option <%= u.getGroup().getName().equals(group.getName()) ? "selected": "" %> value="<%= group.getGroupId() %>"><%= group.getName() %></option>
                             <% } %>
                         </select>
                     </div>

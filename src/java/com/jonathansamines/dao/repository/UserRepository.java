@@ -109,7 +109,9 @@ public class UserRepository implements IRepository<User> {
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
             
-            return st.execute("INSERT INTO users (username, firstname, lastname, id_group, password) VALUES('" + user.getUsername() + "', '" + user.getFirstName() + "', '" + user.getLastName() + "', " + user.getGroup().getGroupId() + ", MD5('" + user.getPassword() + "'));");
+            st.execute("INSERT INTO users (username, firstname, lastname, id_group, password) VALUES('" + user.getUsername() + "', '" + user.getFirstName() + "', '" + user.getLastName() + "', " + user.getGroup().getGroupId() + ", MD5('" + user.getPassword() + "'));");
+            
+            return true;
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -122,7 +124,23 @@ public class UserRepository implements IRepository<User> {
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
             
-            return st.execute("UPDATE users SET username = '" + user.getUsername() +  "', firstname = '" + user.getFirstName() + "', lastname = '" + user.getLastName() + "', id_group = " + user.getGroup().getGroupId() + " WHERE id_user = " + user.getUserId() + ";");
+            st.execute("UPDATE users SET username = '" + user.getUsername() +  "', firstname = '" + user.getFirstName() + "', lastname = '" + user.getLastName() + "', id_group = " + user.getGroup().getGroupId() + " WHERE id_user = " + user.getUserId() + ";");
+            
+            return true;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+    
+    public boolean delete(int userId) {
+        try(Connection connection = ConnectionManager.getConnection();
+            Statement st = connection.createStatement()) {
+            
+            st.execute("DELETE FROM users WHERE id_user = " + userId + ";");
+            
+            return true;
         }catch(SQLException e) {
             e.printStackTrace();
         }

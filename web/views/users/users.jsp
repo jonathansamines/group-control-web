@@ -5,9 +5,10 @@
   <head>
     <%@include file="../partials/_meta.jsp" %>
 
-    <title>Usuarios</title>
+    <title>Mantenimiento de Usuarios</title>
 
     <%@include file="../partials/_includes.jsp" %>
+
     <% ArrayList<User> users = (ArrayList<User>)request.getAttribute("users"); %>
   </head>
   <body>
@@ -40,11 +41,18 @@
                               <td><%= u.getGroup().getName() %></td>
                               <td>
                                   <a class="btn btn-xs btn-primary" href="<%= request.getContextPath() %>/users/update?userId=<%= u.getUserId() %>">Modificar</a>
+                                  <a class="btn btn-xs btn-danger" href="<%= request.getContextPath() %>/users/delete?userId=<%= u.getUserId() %>">Eliminar</a>
                               </td>
                           </tr>
                         <% } %>
                     </tbody>
                 </table>
+                    
+                <% if (request.getAttribute("message") != null) { %>
+                    <div class="form-group">
+                        <p class="alert alert-success"><%= request.getAttribute("message") %></p>
+                    </div>
+                <% } %>
               </div>
           </div>
           

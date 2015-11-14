@@ -1,6 +1,6 @@
 package com.jonathansamines.servlets;
 
-import com.jonathansamines.dao.repository.GroupRepository;
+import com.jonathansamines.dao.repository.UserRepository;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServlet;
@@ -9,18 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
-/**
- * Index
- * @author jonathansamines
- */
-@WebServlet(name = "Groups", urlPatterns = { "/groups" })
-public class GroupsServlet extends HttpServlet {
+@WebServlet(name = "UserDelete", urlPatterns = { "/users/delete" })
+public class UserDeleteServlet extends HttpServlet {
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GroupRepository repository = new GroupRepository();
+        int userId = Integer.parseInt(request.getParameter("userId"));
         
-        request.setAttribute("groups", repository.get());
-        request.getRequestDispatcher("views/groups/groups.jsp").forward(request, response);
+        UserRepository repository = new UserRepository();
+        
+        repository.delete(userId);
+        
+        response.sendRedirect(request.getContextPath() + "/users");
     }
 }
+

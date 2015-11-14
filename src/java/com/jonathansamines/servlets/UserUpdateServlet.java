@@ -31,6 +31,7 @@ public class UserUpdateServlet extends HttpServlet {
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int userId = Integer.parseInt(request.getParameter("userId"));
         String username = request.getParameter("username");
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
@@ -47,6 +48,7 @@ public class UserUpdateServlet extends HttpServlet {
         int groupId = Integer.parseInt(request.getParameter("group"));
         
         User user = new User(username, firstname, lastname);
+        user.setUserId(userId);
         
         Group group = new Group(null);
         group.setGroupId(groupId);
@@ -54,7 +56,7 @@ public class UserUpdateServlet extends HttpServlet {
         user.setGroup(group);
         
         if (this.users.update(user)) {
-            request.setAttribute("message", "Usuario creado correctamente.");
+            request.setAttribute("message", "Usuario modificado correctamente.");
             response.sendRedirect(request.getContextPath() + "/users");
             
             return;
@@ -62,7 +64,7 @@ public class UserUpdateServlet extends HttpServlet {
         
         request.setAttribute("message", "Error al crear el usuario");
         request.setAttribute("groups", groups.get());
-        request.setAttribute("user", users.getById(Integer.parseInt(request.getParameter("userId"))));
+        request.setAttribute("user", users.getById(userId));
         request.getRequestDispatcher("../views/users/updateUser.jsp").forward(request, response);
     }
 }

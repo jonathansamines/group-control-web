@@ -59,7 +59,9 @@ public class GroupRepository implements IRepository<Group> {
     public boolean create(Group group) {
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
-            return st.execute("INSERT INTO Group VALUES('" + group.getName() + "')");
+            st.execute("INSERT INTO groups VALUES('" + group.getName() + "')");
+            
+            return true;
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -71,7 +73,9 @@ public class GroupRepository implements IRepository<Group> {
     public boolean update(Group group) {
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
-            return st.execute("UPDATE Group SET name = '" + group.getName() + "';");
+            st.execute("UPDATE groups SET name = '" + group.getName() + "';");
+            
+            return true;
         }catch(SQLException e) {
             e.printStackTrace();
         }
