@@ -34,4 +34,14 @@
         <filter-name>ProtectionFilter</filter-name>
         <servlet-name>Permissions</servlet-name>
     </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>ProtectionFilter</filter-name>
+        <servlet-name>UserCreation</servlet-name>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>ProtectionFilter</filter-name>
+        <servlet-name>UserUpdate</servlet-name>
+    </filter-mapping>
 </web-app>

@@ -1,5 +1,6 @@
 package com.jonathansamines.servlets;
 
+import com.jonathansamines.dao.repository.GroupRepository;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,9 @@ public class GroupsServlet extends HttpServlet {
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        GroupRepository repository = new GroupRepository();
+        
+        request.setAttribute("groups", repository.get());
         request.getRequestDispatcher("views/groups.jsp").forward(request, response);
     }
 }

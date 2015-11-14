@@ -75,7 +75,33 @@ public class UserRepository implements IRepository<User> {
     
     @Override
     public User getById(int userId) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try(Connection connection = ConnectionManager.getConnection();
+            Statement st = connection.createStatement()) {
+            ResultSet set = st.executeQuery("SELECT id_user, username, firstname, lastname, groups.name as group_name, groups.id_group, permissions.name as permission_name, permissions.id_permission as id_permission, permissions.path as permission_path, permissions.display as permission_display FROM users LEFT JOIN groups ON groups.id_group = users.id_group LEFT JOIN group_permissions ON groups.id_group = group_permissions.id_group LEFT JOIN permissions ON group_permissions.id_permission = permissions.id_permission WHERE id_user = " + userId + ";");
+            User user = null;
+
+            while(set.next()) {
+                if (user == null) {
+                    user = new User(set.getString("username"), set.getString("firstname"), set.getString("lastname"));
+                    user.setUserId(set.getInt("id_user"));
+                    
+                    Group group = new Group(set.getString("group_name"));
+                    group.setGroupId(set.getInt("id_group"));
+                    user.setGroup(group);
+                }
+                
+                Permission permission = new Permission(set.getString("permission_name"), set.getString("permission_path"), set.getString("permission_display"));
+                permission.setPermissionId(set.getInt("id_permission"));
+                
+                user.getGroup().addPermission(permission);
+            }
+            
+            return user;
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return null;
     }
 
     @Override
@@ -96,7 +122,7 @@ public class UserRepository implements IRepository<User> {
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
             
-            return st.execute("UPDATE users SET username = '" + user.getUsername() +  "', firstname = '" + user.getFirstName() + "', lastname = '" + user.getLastName() + "', id_group = " + user.getGroup().getGroupId() + ", password = MD5('" + user.getPassword() + "') WHERE id_user = " + user.getUserId() + ";");
+            return st.execute("UPDATE users SET username = '" + user.getUsername() +  "', firstname = '" + user.getFirstName() + "', lastname = '" + user.getLastName() + "', id_group = " + user.getGroup().getGroupId() + " WHERE id_user = " + user.getUserId() + ";");
         }catch(SQLException e) {
             e.printStackTrace();
         }

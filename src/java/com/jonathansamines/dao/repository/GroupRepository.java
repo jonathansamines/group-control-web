@@ -17,23 +17,29 @@ public class GroupRepository implements IRepository<Group> {
 
     @Override
     public ArrayList get() {
+        ArrayList<String> names = new ArrayList<>();
         ArrayList<Group> groups = new ArrayList<>();
 
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
-            ResultSet set = st.executeQuery("SELECT * FROM Group LEFT JOIN Permissions ON Permissions.id_group = Group.id_group;");
+            ResultSet set = st.executeQuery("SELECT groups.name as group_name, groups.id_group, permissions.name as permission_name, permissions.id_permission as id_permission, permissions.path as permission_path, permissions.display as permission_display FROM groups LEFT JOIN group_permissions ON groups.id_group = group_permissions.id_group LEFT JOIN permissions ON group_permissions.id_permission = permissions.id_permission;");
+            Group group = null;
 
             while(set.next()) {
-                Group group = new Group(set.getString("name"));
+                group = new Group(set.getString("group_name"));
                 group.setGroupId(set.getInt("id_group"));
                 
-                Permission permission = new Permission(set.getString("name"), null, null);
-                permission.setPermissionId(set.getInt("id_permission"));
-                
-                int index = groups.indexOf(group);
+                int index = names.indexOf(group.getName());
+
                 if (index == -1) {
                     groups.add(group);
+                    names.add(group.getName());
+                }else {
+                    group = groups.get(index);
                 }
+                
+                Permission permission = new Permission(set.getString("permission_name"), null, null);
+                permission.setPermissionId(set.getInt("id_permission"));
                 
                 group.addPermission(permission);
             }
