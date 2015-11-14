@@ -1,5 +1,6 @@
 package com.jonathansamines.servlets;
 
+import com.jonathansamines.dao.repository.UserRepository;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,8 @@ public class UsersServlet extends HttpServlet {
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserRepository repository = new UserRepository();
+        request.setAttribute("users", repository.get());
         request.getRequestDispatcher("views/users.jsp").forward(request, response);
     }
 }

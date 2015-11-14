@@ -13,7 +13,7 @@
           
           <div class="jumbotron">
             <h1>Bienvenido</h1>
-            <p class="lead">Bienvenidos a la <strong>Aplicaciòn de Control de Permisos</strong>. En ésta aplicación podrá gestionar usuarios, grupos y permisos.</p>
+            <p class="lead">Bienvenidos a la <strong>Aplicación de Control de Permisos</strong>. En ésta aplicación podrá gestionar usuarios, grupos y permisos.</p>
           </div>
           
           <%@include file="views/partials/_footer.jsp" %>

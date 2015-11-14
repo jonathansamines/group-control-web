@@ -16,9 +16,11 @@
                     <li role="presentation <%= permission.getPath().equals(request.getContextPath()) %>">
                         <a href="<%= request.getContextPath() + permission.getPath() %>"><%= permission.getName() %></a>
                     </li>
-          <% }
-            }
-          %>
+            <% } %>
+            <li role="presentation">
+                <a href="<%= request.getContextPath() + "/logout" %>">logout</a>
+            </li>
+           <% } %>
       </ul>
     </nav>
     <h3 class="text-muted">Control de Permisos</h3>
