@@ -32,6 +32,8 @@ public class ProtectionFilter implements Filter {
             res.sendRedirect(req.getContextPath() + "/login");
             return;
         }
+        ;
+        req.setAttribute("servletPath", req.getServletPath());
         
         chain.doFilter(request, response);
     }

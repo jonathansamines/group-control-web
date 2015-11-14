@@ -46,7 +46,7 @@ public class UserRepository implements IRepository<User> {
     public User validateCredentials(String username, String password) {
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
-            ResultSet set = st.executeQuery("SELECT id_user, username, firstname, lastname, groups.name as group_name, groups.id_group, permissions.name as permission_name, permissions.id_permission as id_permission, permissions.path as permission_path FROM users LEFT JOIN groups ON groups.id_group = users.id_group LEFT JOIN group_permissions ON groups.id_group = group_permissions.id_group LEFT JOIN permissions ON group_permissions.id_permission = permissions.id_permission WHERE username = '" + username + "' AND password = MD5('" + password + "');");
+            ResultSet set = st.executeQuery("SELECT id_user, username, firstname, lastname, groups.name as group_name, groups.id_group, permissions.name as permission_name, permissions.id_permission as id_permission, permissions.path as permission_path, permissions.display as permission_display FROM users LEFT JOIN groups ON groups.id_group = users.id_group LEFT JOIN group_permissions ON groups.id_group = group_permissions.id_group LEFT JOIN permissions ON group_permissions.id_permission = permissions.id_permission WHERE username = '" + username + "' AND password = MD5('" + password + "');");
             User user = null;
 
             while(set.next()) {
@@ -59,7 +59,7 @@ public class UserRepository implements IRepository<User> {
                     user.setGroup(group);
                 }
                 
-                Permission permission = new Permission(set.getString("permission_name"), set.getString("permission_path"));
+                Permission permission = new Permission(set.getString("permission_name"), set.getString("permission_path"), set.getString("permission_display"));
                 permission.setPermissionId(set.getInt("id_permission"));
                 
                 user.getGroup().addPermission(permission);

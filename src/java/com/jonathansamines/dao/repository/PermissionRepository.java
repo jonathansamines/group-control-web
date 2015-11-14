@@ -23,7 +23,7 @@ public class PermissionRepository implements IRepository<Permission> {
             ResultSet set = st.executeQuery("SELECT * FROM Permission;");
 
             while(set.next()) {
-                Permission permission = new Permission(set.getString("name"), null);
+                Permission permission = new Permission(set.getString("name"), null, null);
                 permission.setPermissionId(set.getInt("id_permission"));
                 
                 permissions.add(permission);

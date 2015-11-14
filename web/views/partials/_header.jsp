@@ -13,12 +13,12 @@
         <%
             if (user != null) {
                 for(Permission permission : user.getGroup().getPermissions()) { %>
-                    <li role="presentation <%= permission.getPath().equals(request.getContextPath()) %>">
-                        <a href="<%= request.getContextPath() + permission.getPath() %>"><%= permission.getName() %></a>
+                    <li role="presentation" class="<%= (permission.getPath().equals(request.getAttribute("servletPath")) ? "active" : "") %>">
+                        <a href="<%= request.getContextPath() + permission.getPath() %>"><%= permission.getDisplay() %></a>
                     </li>
             <% } %>
             <li role="presentation">
-                <a href="<%= request.getContextPath() + "/logout" %>">logout</a>
+                <a href="<%= request.getContextPath() + "/logout" %>">Logout</a>
             </li>
            <% } %>
       </ul>
