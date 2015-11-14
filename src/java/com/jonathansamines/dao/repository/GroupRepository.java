@@ -81,7 +81,18 @@ public class GroupRepository implements IRepository<Group> {
     public boolean create(Group group) {
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
-            st.execute("INSERT INTO groups(name) VALUES('" + group.getName() + "')");
+            st.executeUpdate("INSERT INTO groups(name) VALUES('" + group.getName() + "')", Statement.RETURN_GENERATED_KEYS);
+            
+             try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    group.setGroupId(generatedKeys.getInt(1));;
+                }
+            }
+            
+            // assign permissions
+            for(Permission permission : group.getPermissions()) {
+                st.execute("INSERT INTO group_permissions (id_group, id_permission) VALUES(" + group.getGroupId() + ", " + permission.getPermissionId() + ")");
+            }
             
             return true;
         }catch(SQLException e) {
@@ -97,6 +108,12 @@ public class GroupRepository implements IRepository<Group> {
             Statement st = connection.createStatement()) {
             st.execute("UPDATE groups SET name = '" + group.getName() + "' WHERE id_group = " + group.getGroupId() + ";");
             
+            // reassign permissions
+            st.execute("DELETE FROM group_permissions WHERE id_group = " + group.getGroupId() + ";");
+            for(Permission permission : group.getPermissions()) {
+                st.execute("INSERT INTO group_permissions (id_group, id_permission) VALUES(" + group.getGroupId() + ", " + permission.getPermissionId() + ")");
+            }
+            
             return true;
         }catch(SQLException e) {
             e.printStackTrace();
@@ -104,7 +121,6 @@ public class GroupRepository implements IRepository<Group> {
         
         return false;
     }
-    
     
     public boolean delete(int groupId) {
         try(Connection connection = ConnectionManager.getConnection();

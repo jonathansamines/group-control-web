@@ -20,10 +20,10 @@ public class PermissionRepository implements IRepository<Permission> {
 
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
-            ResultSet set = st.executeQuery("SELECT * FROM Permission;");
+            ResultSet set = st.executeQuery("SELECT * FROM permissions;");
 
             while(set.next()) {
-                Permission permission = new Permission(set.getString("name"), null, null);
+                Permission permission = new Permission(set.getString("name"), set.getString("path"), set.getString("display"));
                 permission.setPermissionId(set.getInt("id_permission"));
                 
                 permissions.add(permission);
@@ -34,7 +34,7 @@ public class PermissionRepository implements IRepository<Permission> {
         
         return permissions;
     }
-
+    
     @Override
     public Permission getById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

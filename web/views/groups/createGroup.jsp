@@ -1,4 +1,4 @@
-<%@page import="com.jonathansamines.dao.models.Group"%>
+<%@page import="com.jonathansamines.dao.models.Permission"%>
 <%@page import="java.util.ArrayList"%>
 
 <!DOCTYPE>
@@ -10,7 +10,7 @@
 
     <%@include file="../partials/_includes.jsp" %>
 
-    <% ArrayList<Group> groups = (ArrayList<Group>)request.getAttribute("groups"); %>
+    <% ArrayList<Permission> permissions = (ArrayList<Permission>)request.getAttribute("permissions"); %>
   </head>
   <body>
     <div class="container">
@@ -22,6 +22,17 @@
                 <div class="form-group">
                     <label for="groupname">Nombre de Grupo</label>
                     <input type="text" class="form-control" id="groupname" name="groupname" placeholder="Nombre del Grupo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="permissions">Asignar Permisos</label>
+                    <select class="form-control" name="permissions" id="permissions" multiple="true">
+                        <% for(Permission permission : permissions) { %>
+                            <option value="<%= permission.getPermissionId() %>">
+                                <%= permission.getDisplay()%> (<%= permission.getPath() %>)
+                            </option>
+                        <% } %>
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-success">Crear Grupo</button>

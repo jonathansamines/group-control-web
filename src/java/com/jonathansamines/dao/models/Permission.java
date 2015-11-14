@@ -20,6 +20,10 @@ public class Permission {
         this.display = display;
         this.groups = new ArrayList<>();
     }
+    
+    public Permission() {
+        this.groups = new ArrayList<>();
+    }
 
     public int getPermissionId() {
         return permissionId;
