@@ -27,7 +27,7 @@ public class GroupRepository implements IRepository<Group> {
                 Group group = new Group(set.getString("name"));
                 group.setGroupId(set.getInt("id_group"));
                 
-                Permission permission = new Permission(set.getString("name"));
+                Permission permission = new Permission(set.getString("name"), null);
                 permission.setPermissionId(set.getInt("id_permission"));
                 
                 int index = groups.indexOf(group);

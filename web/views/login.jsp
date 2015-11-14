@@ -5,16 +5,12 @@
     <title>Inicio de Sesión</title>
     <%@include file="partials/_includes.jsp" %>
   </head>
-
   <body>
-      <%@include file="partials/_header.jsp" %>
-      
       <div class="container">
-          <br>
-          <br>
-          <br>
+          <%@include file="partials/_header.jsp" %>
+
           <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-8 col-md-offset-2">
                 <form method="POST" action="login">
                     <div class="form-group">
                         <label for="username">Nombre de Usuario</label>
@@ -36,9 +32,9 @@
                 </form>
             </div>
         </div>
-      </div>
 
-      <%@include file="partials/_footer.jsp" %>
+        <%@include file="partials/_footer.jsp" %>
+      </div>
     </div>
 </body>
 </html>

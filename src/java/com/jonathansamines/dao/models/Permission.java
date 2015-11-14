@@ -10,10 +10,12 @@ public class Permission {
     
     private int permissionId;
     private String name;
+    private String path;
     private ArrayList<Group> groups;
     
-    public Permission(String name) {
+    public Permission(String name, String path) {
         this.name = name;
+        this.path = path;
         this.groups = new ArrayList<>();
     }
 
@@ -39,5 +41,13 @@ public class Permission {
 
     public void setGroups(ArrayList<Group> groups) {
         this.groups = groups;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
