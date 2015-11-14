@@ -26,7 +26,7 @@
                 
                 <div class="form-group">
                     <label for="permissions">Asignar Permisos</label>
-                    <select class="form-control" name="permissions" id="permissions" multiple="true">
+                    <select class="form-control" name="permissions" id="permissions" multiple="true" required>
                         <% for(Permission permission : permissions) { %>
                             <option value="<%= permission.getPermissionId() %>">
                                 <%= permission.getDisplay()%> (<%= permission.getPath() %>)
