@@ -13,7 +13,7 @@ public class ConnectionManager {
     
     private static final String connectionUri = "jdbc:mysql://localhost:3306";
     private static final String connectionClassName = "com.mysql.jdbc.Driver";
-    private static final String databaseName = "catalog-management";
+    private static final String databaseName = "catalog_management";
     private static final String username = "root";
     private static final String password = "r00t";
     

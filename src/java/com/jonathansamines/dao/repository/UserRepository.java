@@ -22,7 +22,7 @@ public class UserRepository implements IRepository<User> {
 
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
-            ResultSet set = st.executeQuery("SELECT * FROM User LEFT JOIN Group ON Group.id_group = User.id_group;");
+            ResultSet set = st.executeQuery("SELECT * FROM users LEFT JOIN groups ON groups.id_group = users.id_group;");
 
             while(set.next()) {
                 User user = new User(set.getString("username"), set.getString("firstname"), set.getString("lastname"));
@@ -45,7 +45,7 @@ public class UserRepository implements IRepository<User> {
     public User validateCredentials(String username, String password) {
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
-            ResultSet set = st.executeQuery("SELECT * FROM User LEFT JOIN Group ON Group.id_group = User.id_group WHERE username = '" + username + "' AND password MD5('" + password + "');");
+            ResultSet set = st.executeQuery("SELECT * FROM users LEFT JOIN groups ON groups.id_group = users.id_group WHERE username = '" + username + "' AND password = MD5('" + password + "');");
 
             while(set.next()) {
                 User user = new User(set.getString("username"), set.getString("firstname"), set.getString("lastname"));
@@ -75,7 +75,7 @@ public class UserRepository implements IRepository<User> {
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
             
-            return st.execute("INSERT INTO User (username, firstname, lastname, id_group, password) VALUES('" + user.getUsername() + "', '" + user.getFirstName() + "', '" + user.getLastName() + "', " + user.getGroup().getGroupId() + ", MD5('" + user.getPassword() + "'));");
+            return st.execute("INSERT INTO users (username, firstname, lastname, id_group, password) VALUES('" + user.getUsername() + "', '" + user.getFirstName() + "', '" + user.getLastName() + "', " + user.getGroup().getGroupId() + ", MD5('" + user.getPassword() + "'));");
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class UserRepository implements IRepository<User> {
         try(Connection connection = ConnectionManager.getConnection();
             Statement st = connection.createStatement()) {
             
-            return st.execute("UPDATE User SET username = '" + user.getUsername() +  "', firstname = '" + user.getFirstName() + "', lastname = '" + user.getLastName() + "', id_group = " + user.getGroup().getGroupId() + ", password = MD5('" + user.getPassword() + "') WHERE id_user = " + user.getUserId() + ";");
+            return st.execute("UPDATE users SET username = '" + user.getUsername() +  "', firstname = '" + user.getFirstName() + "', lastname = '" + user.getLastName() + "', id_group = " + user.getGroup().getGroupId() + ", password = MD5('" + user.getPassword() + "') WHERE id_user = " + user.getUserId() + ";");
         }catch(SQLException e) {
             e.printStackTrace();
         }
